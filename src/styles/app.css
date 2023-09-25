@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 body {
-	@apply h-full w-full pr-8;
+	@apply h-full w-full;
 }
 
 .component {
-	@apply bg-black/80 shadow-xl text-white font-light rounded-lg p-4;
+	@apply bg-black/80 shadow-xl text-white rounded-lg p-4;
 }

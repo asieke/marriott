@@ -5,7 +5,6 @@ import { OPEN_WEATHER_KEY } from '$env/static/private';
 import type { DailyWeather } from '$lib/types';
 
 export async function getDailyWeather(): Promise<DailyWeather[]> {
-	console.log('fetching weather', OPEN_WEATHER_KEY);
 	try {
 		const url = `https://api.openweathermap.org/data/2.5/forecast/daily?cnt=4&lat=${41.19807}&lon=${-73.46086}&appid=${OPEN_WEATHER_KEY}&units=imperial`;
 		const response = await axios.get(url);

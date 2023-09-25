@@ -1,9 +1,6 @@
 <script lang="ts">
 	import type { Masterpiece } from '$lib/types';
-
 	export let masterpiece: Masterpiece;
-
-	console.log(masterpiece);
 </script>
 
 <div>

@@ -18,3 +18,8 @@ export type Masterpiece = {
 	artist: string;
 	url: string;
 };
+
+export type Word = {
+	word: string;
+	url: string;
+};

@@ -1,3 +1,5 @@
+import type { Masterpiece } from '$lib/types';
+
 export const masterpieces = [
 	{
 		id: 1,
@@ -121,10 +123,10 @@ export const masterpieces = [
 	}
 ];
 
-export const getMasterpiece = async () => {
+export const getMasterpiece = async (): Promise<Masterpiece> => {
 	const r = Math.floor(Math.random() * masterpieces.length);
 	return {
 		...masterpieces[r],
-		url: '/masterpieces/' + masterpieces[r].id + '.png'
+		url: '/masterpieces/' + masterpieces[r].id + '.png' || ''
 	};
 };

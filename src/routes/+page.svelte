@@ -33,6 +33,12 @@
 		console.log('running token update');
 		const localRefreshToken = await localforage.getItem('provider_refresh_token');
 		const localProviderToken = await localforage.getItem('provider_token');
+
+		if (!localProviderToken && session?.provider_token) {
+			localforage.setItem('provider_token', session.provider_token);
+			localforage.setItem('provider_refresh_token', session.provider_refresh_token);
+		}
+
 		const { data } = await axios.get(
 			'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=' + localProviderToken
 		);
@@ -48,6 +54,7 @@
 	};
 
 	onMount(async () => {
+		updateTokens();
 		setInterval(async () => {
 			await updateTokens();
 		}, 1000 * 60 * 5);

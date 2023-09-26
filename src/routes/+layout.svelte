@@ -29,7 +29,7 @@
 
 <!-- Set the background image to /images/backgrounds/random.jpg -->
 <div
-	class="h-full w-full min-h-[1920px] min-w-[1080px] pr-8 pt-8"
+	class="h-full w-full min-h-[1920px] min-w-[1080px] pr-8"
 	style="background: url('/backgrounds/{random}.jpg') no-repeat center center fixed; background-size: cover;"
 >
 	<slot />

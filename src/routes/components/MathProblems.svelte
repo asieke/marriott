@@ -3,7 +3,7 @@
 
 	let num1: number, num2: number, operator: string, sym1: string[], sym2: string[];
 
-	onMount(() => {
+	const setProblem = () => {
 		let rand = Math.random();
 
 		num1 = Math.floor(Math.random() * 5 + 1);
@@ -15,8 +15,6 @@
 			num1 = num2 + Math.floor(Math.random() * 5);
 			operator = '-';
 		}
-
-		console.log('num1', num1, 'num2', num2, 'operator', operator);
 
 		//create an array of *'s the length of num1
 		sym1 = Array(num1).fill('★');
@@ -34,6 +32,13 @@
 			const secondHalf = sym2.slice(Math.floor(sym2.length / 2));
 			sym2 = [...firstHalf, '<br>', ...secondHalf];
 		}
+	};
+
+	onMount(() => {
+		setProblem();
+		setInterval(() => {
+			setProblem();
+		}, 5 * 60 * 100);
 	});
 </script>
 

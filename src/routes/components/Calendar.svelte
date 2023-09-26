@@ -2,11 +2,12 @@
 	import { onMount } from 'svelte';
 	import axios from 'axios';
 	import { page } from '$app/stores';
+	import localforage from 'localforage';
 
 	let calendars = '';
 
 	onMount(async () => {
-		const provider_token = $page.data.session?.provider_token;
+		const provider_token = await localforage.getItem('provider_token');
 
 		const { data } = await axios.get(
 			'https://www.googleapis.com/calendar/v3/users/me/calendarList',
@@ -18,8 +19,6 @@
 		);
 
 		calendars = data.items.map((item) => item.summary).join('<br>');
-
-		console.log(data);
 	});
 </script>
 

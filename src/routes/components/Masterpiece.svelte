@@ -5,7 +5,7 @@
 
 <div>
 	<div class="w-full">
-		<img src={masterpiece.url} alt={masterpiece.name} class="w-full h-full object-cover" />
+		<img src={masterpiece.url} alt={masterpiece.name} class="w-full max-h-[400px] object-cover" />
 		<div>
 			<div class="pt-2 text-xl font-bold">{masterpiece.name}</div>
 			<div class="text-xl">{masterpiece.artist} ({masterpiece.date})</div>

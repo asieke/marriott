@@ -24,6 +24,6 @@
 </script>
 
 <div class="p-4">
-	<h1 class="font-mono text-4xl mb-3">{time}</h1>
+	<h1 class="font-mono text-6xl mb-3">{time}</h1>
 	<h2 class="font-mono text-2xl">{date}</h2>
 </div>

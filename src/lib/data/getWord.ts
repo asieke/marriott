@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, list, del } from '@vercel/blob';
+import { put, list } from '@vercel/blob';
 import { BLOB_READ_WRITE_TOKEN, OPENAI_API_KEY } from '$env/static/private';
 
 const generateImage = async (prompt: string) => {

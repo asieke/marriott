@@ -22,13 +22,15 @@ export async function getDailyWeather(): Promise<DailyWeather[]> {
 			sunrise: new Date(1000 * item.sunrise)
 				.toLocaleTimeString('en-US', {
 					hour: 'numeric',
-					minute: '2-digit'
+					minute: '2-digit',
+					timeZone: 'America/New_York'
 				})
 				.slice(0, -2),
 			sunset: new Date(1000 * item.sunset)
 				.toLocaleTimeString('en-US', {
 					hour: 'numeric',
-					minute: '2-digit'
+					minute: '2-digit',
+					timeZone: 'America/New_York'
 				})
 				.slice(0, -2)
 		}));

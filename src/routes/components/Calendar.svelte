@@ -3,22 +3,26 @@
 	import axios from 'axios';
 	import { page } from '$app/stores';
 
-	onMount(() => {
+	let calendars = '';
+
+	onMount(async () => {
 		const provider_token = $page.data.session?.provider_token;
-		const refresh_token = $page.data.session?.refresh_token;
-		fetch('https://www.googleapis.com/calendar/v3/users/me/calendarList', {
-			headers: {
-				Authorization: `Bearer ${provider_token}`
+
+		const { data } = await axios.get(
+			'https://www.googleapis.com/calendar/v3/users/me/calendarList',
+			{
+				headers: {
+					Authorization: `Bearer ${provider_token}`
+				}
 			}
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log('Calendars:', data);
-			})
-			.catch((error) => {
-				console.log('An error occurred:', error);
-			});
+		);
+
+		calendars = data.items.map((item) => item.summary).join('<br>');
+
+		console.log(data);
 	});
 </script>
 
-<div>Hello</div>
+<div>
+	{@html calendars}
+</div>

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import axios from 'axios';
+	import { PUBLIC_REDIR } from '$env/static/public';
 
 	import DailyWeather from './components/DailyWeather.svelte';
 	import DateTime from './components/DateTime.svelte';
 	import Masterpiece from './components/Masterpiece.svelte';
 	import WordOfTheDay from './components/WordOfTheDay.svelte';
 	import MathProblems from './components/MathProblems.svelte';
+	import Calendar from './components/Calendar.svelte';
 
 	export let data;
 	const { dailyWeather, masterpiece, word, supabase } = data;
@@ -15,7 +15,13 @@
 
 	const login = async () => {
 		supabase.auth.signInWithOAuth({
-			provider: 'google'
+			provider: 'google',
+			options: {
+				queryParams: { access_type: 'offline', prompt: 'consent' },
+				redirectTo: PUBLIC_REDIR,
+				scopes:
+					'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/gmail.readonly'
+			}
 		});
 	};
 
@@ -32,6 +38,8 @@
 		<div class="component"><MathProblems /></div>
 	</div>
 	<div>
-		<div class="component">Component 1</div>
+		<div class="component">
+			<Calendar />
+		</div>
 	</div>
 </div>

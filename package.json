@@ -39,6 +39,7 @@
 		"@supabase/supabase-js": "^2.36.0",
 		"@vercel/blob": "^0.12.5",
 		"axios": "^1.5.0",
+		"dexie": "^4.0.1-alpha.25",
 		"google-auth-library": "^9.0.0",
 		"localforage": "^1.10.0",
 		"lucide-svelte": "^0.279.0",

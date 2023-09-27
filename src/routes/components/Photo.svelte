@@ -1,70 +1,86 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import axios from 'axios';
 	import { page } from '$app/stores';
 	import localforage from 'localforage';
+	import { slide } from 'svelte/transition';
 
-	let imageUrl = '';
-	let itemCount = 100;
-	let albumId = '';
-	let pictures: string[] = [];
+	const TIME_PER_SLIDE = 60;
 
-	const getAlbumInfo = async () => {
-		const provider_token = await localforage.getItem('provider_token');
-		const { data } = await axios.get('https://photoslibrary.googleapis.com/v1/albums', {
-			headers: {
-				Authorization: `Bearer ${provider_token}`
-			}
-		});
-		const album = data.albums.find((album: { title: string }) => album.title === 'Home Slideshow');
+	const getImage = async (): Promise<string> => {
+		const { supabase } = $page.data;
+		const { data, error } = await supabase.storage.from('pictures').list('', {});
+		data.shift();
 
-		itemCount = album.mediaItemsCount;
-		albumId = album.id;
+		const r = Math.floor(Math.random() * data.length);
+		const imageKey = data[r].name;
 
-		console.log(album);
-	};
+		let base64Image = await localforage.getItem<string>(imageKey);
 
-	const getPictures = async () => {
-		console.log(itemCount);
-		const provider_token = await localforage.getItem('provider_token');
-		try {
-			// Fetch photos from the album
-			let nextPageToken = null;
-			for (let i = 0; i < itemCount; i += 100) {
-				const { data } = await axios.post(
-					'https://photoslibrary.googleapis.com/v1/mediaItems:search',
-					{
-						albumId: albumId,
-						pageSize: 100, // Get up to 100 photos from the album
-						pageToken: nextPageToken
-					},
-					{
-						headers: {
-							Authorization: `Bearer ${provider_token}`
-						}
-					}
-				);
-				nextPageToken = data.nextPageToken;
-				data.mediaItems.forEach((item: { baseUrl: string }) => {
-					pictures.push(item.baseUrl);
-				});
-			}
-		} catch (error) {
-			console.error('An error occurred:', error);
+		if (!base64Image) {
+			const { data: urlData } = await supabase.storage.from('pictures').getPublicUrl(imageKey);
+
+			const img = new Image();
+			img.crossOrigin = 'anonymous';
+			img.src = urlData.publicUrl;
+
+			await new Promise((resolve) => (img.onload = resolve));
+
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+			canvas.width = img.width;
+			canvas.height = img.height;
+
+			ctx?.drawImage(img, 0, 0);
+			base64Image = canvas.toDataURL('image/jpeg');
+
+			await localforage.setItem(imageKey, base64Image);
 		}
+
+		return base64Image;
 	};
+
+	let imageURL1: string, imageURL2: string;
+	let slider: HTMLDivElement;
+	let pctPixel = 0;
 
 	onMount(async () => {
-		await getAlbumInfo();
-		await getPictures();
+		imageURL1 = await getImage();
+		imageURL2 = await getImage();
 
-		imageUrl = pictures[Math.floor(Math.random() * pictures.length)];
+		if (!slider) return;
+
 		setInterval(() => {
-			imageUrl = pictures[Math.floor(Math.random() * pictures.length)];
-		}, 1000 * 60);
+			slider!.style.transform = 'translateX(-468px)';
+			setTimeout(async () => {
+				pctPixel = 0;
+				const newImgSrc = await getImage();
+				const imgElement = document.createElement('img');
+				imgElement.src = newImgSrc; // Set its source
+				imgElement.className = 'w-[468px] h-[400px] object-cover object-center'; // Set its classes
+
+				slider.style.transition = 'none';
+				slider.style.transform = `translateX(0px)`;
+				setTimeout(() => {
+					slider.style.transition = 'transform 1000ms ease-in-out';
+				}, 10);
+				slider.removeChild(slider.firstElementChild as HTMLImageElement);
+				slider.appendChild(imgElement); // Append it to the slider div
+				//remove the first child element
+			}, 1000);
+		}, TIME_PER_SLIDE * 1000);
+
+		setInterval(() => {
+			pctPixel += 1;
+		}, (TIME_PER_SLIDE * 1000) / 468);
 	});
 </script>
 
-<div>
-	<img src={imageUrl} />
+<div class="relative h-[400px] w-[468px] overflow-hidden">
+	<div class="absolute h-[400px] w-[936px] flex flex-row" bind:this={slider}>
+		<img src={imageURL1} class="w-[468px] h-[400px] object-cover object-center" alt="random" />
+		<img src={imageURL2} class="w-[468px] h-[400px] object-cover object-center" alt="random" />
+	</div>
+</div>
+<div class="w-full overflow-hidden">
+	<div class=" h-[10px] bg-slate-950" style="width: {pctPixel}px" />
 </div>

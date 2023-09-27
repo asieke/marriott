@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { db } from '$lib/localdb';
 
-	const TIME_PER_SLIDE = 5; // Time for each image slide in seconds
+	const TIME_PER_SLIDE = 60; // Time for each image slide in seconds
 
 	// Function to fetch an image, perform caching and return base64 encoded image string
 	const getImage = async (): Promise<string> => {

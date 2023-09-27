@@ -3,6 +3,7 @@
 
 	import { page } from '$app/stores';
 	import { db } from '$lib/localdb';
+	import { imageUrlToBase64 } from '$lib/utils/image';
 
 	let label = 'Get Photos';
 
@@ -14,27 +15,12 @@
 			label = i + '/' + (data.length - 1);
 			//Check if image already exists in local db
 			const photo = await db.photos.get({ supabaseName: data[i].name });
-
 			if (photo) {
 				continue;
 			}
-
-			const { data: urlData } = await supabase.storage.from('pictures').getPublicUrl(data[i].name);
-
 			//Convert image to base64
-			const img = new Image();
-			img.crossOrigin = 'anonymous';
-			img.src = urlData.publicUrl;
-
-			await new Promise((resolve) => (img.onload = resolve));
-
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext('2d');
-			canvas.width = img.width;
-			canvas.height = img.height;
-
-			ctx?.drawImage(img, 0, 0);
-			const base64Image = canvas.toDataURL('image/jpeg');
+			const { data: urlData } = await supabase.storage.from('pictures').getPublicUrl(data[i].name);
+			const base64Image = await imageUrlToBase64(urlData.publicUrl);
 
 			await db.photos.add({ supabaseName: data[i].name, base64Url: base64Image });
 		}

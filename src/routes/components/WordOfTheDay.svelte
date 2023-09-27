@@ -1,13 +1,33 @@
 <script lang="ts">
-	import type { Word } from '$lib/types';
+	import { onMount } from 'svelte';
+	import { db, type Word } from '$lib/localdb';
 
-	export let word: Word;
+	const WORD_REFRESH = 120; //seconds
+
+	let pctPixel = 0;
+	let word: Word | null;
+	onMount(async () => {
+		word = await db.getRandomWord();
+		setInterval(async () => {
+			word = await db.getRandomWord();
+			pctPixel = 0;
+		}, WORD_REFRESH * 1000);
+
+		setInterval(() => {
+			pctPixel += 1;
+		}, (WORD_REFRESH * 1000) / 468);
+	});
 </script>
 
 <div class="flex flex-row">
-	<img src={word.url} alt={word.word} class="w-1/2" />
-	<div class="w-1/2 flex items-center flex-col align-middle">
-		<h1 class="uppercase text-7xl pt-8">{word.word}</h1>
-		<h1 class="text-6xl lowercase pt-4">{word.word}</h1>
-	</div>
+	{#if word}
+		<img src={word.base64Url} alt={word.word} class="w-1/2" />
+		<div class="w-1/2 flex items-center flex-col align-middle">
+			<h1 class="uppercase text-7xl pt-8">{word.word}</h1>
+			<h1 class="text-6xl lowercase pt-4">{word.word}</h1>
+		</div>
+	{/if}
+</div>
+<div class="w-full overflow-hidden">
+	<div class=" h-[10px] bg-slate-700" style="width: {pctPixel}px" />
 </div>

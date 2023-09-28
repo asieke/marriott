@@ -1,14 +1,30 @@
 <script lang="ts">
-	import type { Masterpiece } from '$lib/types';
-	export let masterpiece: Masterpiece;
+	import type { Art } from '$lib/types';
+	import axios from 'axios';
+	import { onMount } from 'svelte';
+
+	let art: Art;
+
+	onMount(async () => {
+		const { data } = await axios.get<Art>('/api/art/getRandomArt');
+		art = data;
+		console.log(art);
+	});
 </script>
 
-<div>
-	<div class="w-full">
-		<img src={masterpiece.url} alt={masterpiece.name} class="w-full max-h-[400px] object-cover" />
-		<div>
-			<div class="pt-2 text-xl font-bold">{masterpiece.name}</div>
-			<div class="text-xl">{masterpiece.artist} ({masterpiece.date})</div>
+{#if art}
+	<div>
+		<div class="w-full">
+			<img src={art.image_url} alt={art.title} class="w-full max-h-[400px] object-cover" />
+			<div>
+				<div class="pt-2 text-2xl font-bold">{art.title}</div>
+
+				<div class="text-sm">
+					<img src={art.artist_url} alt={art.artist_name} class="float-left w-32 h-32 mt-3 mr-3" />
+					<div class="pt-2 text-xl font-bold">{art.artist_name}</div>
+					{art.short_description}
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+{/if}

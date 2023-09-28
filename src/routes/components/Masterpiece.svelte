@@ -9,13 +9,18 @@
 		const { data } = await axios.get<Art>('/api/art/getRandomArt');
 		art = data;
 		console.log(art);
+
+		setInterval(async () => {
+			const { data } = await axios.get<Art>('/api/art/getRandomArt');
+			art = data;
+		}, 5 * 60 * 1000);
 	});
 </script>
 
-{#if art}
-	<div>
-		<div class="w-full">
-			<img src={art.image_url} alt={art.title} class="w-full max-h-[400px] object-cover" />
+<div>
+	<div class="w-full h-[800px] overflow-clip text-ellipsis">
+		{#if art}
+			<img src={art.image_url} alt={art.title} class="w-full h-[500px] object-cover" />
 			<div>
 				<div class="pt-2 text-2xl font-bold">{art.title}</div>
 
@@ -25,6 +30,6 @@
 					{art.short_description}
 				</div>
 			</div>
-		</div>
+		{/if}
 	</div>
-{/if}
+</div>

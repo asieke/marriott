@@ -13,7 +13,7 @@
 	import DeleteDB from './components/updaters/DeleteDB.svelte';
 
 	export let data;
-	const { dailyWeather, masterpiece, supabase, session } = data;
+	const { dailyWeather, supabase, session } = data;
 
 	console.log(data);
 </script>
@@ -28,7 +28,7 @@
 	<div class="flex flex-col gap-4">
 		<div class="component"><DateTime /></div>
 		<div class="component"><DailyWeather /></div>
-		<div class="component"><Masterpiece {masterpiece} /></div>
+		<div class="component"><Masterpiece /></div>
 		<div class="component"><WordOfTheDay /></div>
 		<div class="component"><MathProblems /></div>
 	</div>

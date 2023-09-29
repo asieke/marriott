@@ -61,6 +61,7 @@ export interface Database {
 					sk: string | null;
 					title: string | null;
 					titleUrl: string | null;
+					view_count: number | null;
 				};
 				Insert: {
 					artist_id?: number | null;
@@ -71,6 +72,7 @@ export interface Database {
 					sk?: string | null;
 					title?: string | null;
 					titleUrl?: string | null;
+					view_count?: number | null;
 				};
 				Update: {
 					artist_id?: number | null;
@@ -81,6 +83,7 @@ export interface Database {
 					sk?: string | null;
 					title?: string | null;
 					titleUrl?: string | null;
+					view_count?: number | null;
 				};
 				Relationships: [
 					{
@@ -112,6 +115,7 @@ export interface Database {
 					title: string;
 					image_category: string;
 					image_url: string;
+					view_count: number;
 				}[];
 			};
 		};

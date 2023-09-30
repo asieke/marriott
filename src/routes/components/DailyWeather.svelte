@@ -20,7 +20,7 @@
 	});
 </script>
 
-<div class="h-[260px] flex align-middle items-center w-full">
+<div class="h-[240px] flex align-middle items-center w-full">
 	<div class="grid grid-cols-4 gap-1 text-center">
 		{#if dailyWeather}
 			{#each dailyWeather as item}

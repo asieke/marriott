@@ -4,24 +4,23 @@
 	import { page } from '$app/stores';
 	import localforage from 'localforage';
 
-	let calendars = '';
+	let calendars = {};
 
-	// onMount(async () => {
-	// 	const provider_token = await localforage.getItem('provider_token');
+	const getCalendarData = async () => {
+		const url =
+			'https://script.google.com/macros/s/AKfycbz2XHjv0ndBmueIm7V5P-K3YYb7lBAhBWbbyfmWuxfuAmlMwPOeMYrFU8kP7Cq3xZX1/exec';
+		const params = '?key=test1234&type=calendar';
 
-	// 	const { data } = await axios.get(
-	// 		'https://www.googleapis.com/calendar/v3/users/me/calendarList',
-	// 		{
-	// 			headers: {
-	// 				Authorization: `Bearer ${provider_token}`
-	// 			}
-	// 		}
-	// 	);
+		const { data } = await axios.get(url + params);
 
-	// 	calendars = data.items.map((item) => item.summary).join('<br>');
-	// });
+		console.log(data);
+	};
+
+	onMount(async () => {
+		await getCalendarData();
+	});
 </script>
 
 <div>
-	{@html calendars}
+	{@html JSON.stringify(calendars)}
 </div>

@@ -19,13 +19,15 @@
 	});
 </script>
 
-<div class="h-[200px] w-full flex align-middle items-center">
+<div class="h-[220px] w-full flex align-middle items-center">
 	<div>
-		<div class="flex flex-row w-full">
+		<div class="grid grid-cols-2">
 			{#if word}
-				<img src={word.base64Url} alt={word.word} class="w-1/2" />
-				<div class="w-1/2 flex items-center flex-col align-middle">
-					<h1 class="uppercase text-7xl pt-8">{word.word}</h1>
+				<div class="">
+					<img src={word.base64Url} alt={word.word} class="w-full h-full" />
+				</div>
+				<div class=" flex flex-col justify-center items-center align-middle">
+					<h1 class="uppercase text-7xl">{word.word}</h1>
 					<h1 class="text-6xl lowercase pt-4">{word.word}</h1>
 				</div>
 			{/if}

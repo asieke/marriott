@@ -30,7 +30,7 @@
 	});
 </script>
 
-<div class="h-[150px] px-4 flex align-middle items-center">
+<div class="h-[120px] px-4 flex align-middle items-center">
 	<div>
 		<h1 class="font-mono mb-3">
 			<span class="text-6xl">{time.slice(0, -3)}</span>

@@ -13,6 +13,7 @@
 	let calendarDays: CalendarDay[] = [];
 	const getCalendarData = async () => {
 		const { data } = await axios.get<CalendarDay[]>('/api/calendar');
+		console.log(data);
 		calendarDays = data;
 	};
 
@@ -32,13 +33,17 @@
 	};
 
 	const getColor = (title: string) => {
-		if (title.toLowerCase().includes('jane')) {
-			return colors.jane;
-		} else if (title.toLowerCase().includes('george')) {
-			return colors.george;
-		} else if (title.toLowerCase().includes('stan')) {
-			return colors.stan;
-		} else {
+		try {
+			if (title.toLowerCase().includes('jane')) {
+				return colors.jane;
+			} else if (title.toLowerCase().includes('george')) {
+				return colors.george;
+			} else if (title.toLowerCase().includes('stan')) {
+				return colors.stan;
+			} else {
+				return colors.other;
+			}
+		} catch (e) {
 			return colors.other;
 		}
 	};

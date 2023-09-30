@@ -11,12 +11,20 @@ export type DailyWeather = {
 	sunset: string;
 };
 
-export type Masterpiece = {
-	id: number;
-	name: string;
-	date: number;
-	artist: string;
-	url: string;
+export type Art = {
+	artist_id: number;
+	artist_name: string;
+	artist_url: string;
+	short_description: string;
+	start_year: number;
+	end_year: number;
+	region: string;
+	artist_category: string;
+	image_id: number;
+	sk: string;
+	title: string;
+	image_category: string;
+	image_url: string;
 };
 
 export type Word = {

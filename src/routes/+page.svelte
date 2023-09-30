@@ -13,7 +13,7 @@
 	import DeleteDB from './components/updaters/DeleteDB.svelte';
 
 	export let data;
-	const { dailyWeather, supabase, session } = data;
+	const { supabase, session } = data;
 
 	console.log(data);
 </script>

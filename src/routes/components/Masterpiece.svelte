@@ -5,27 +5,54 @@
 
 	let art: Art;
 
-	onMount(async () => {
+	let artImage: HTMLImageElement;
+	let artistImage: HTMLImageElement;
+
+	const loadNewImage = async () => {
 		const { data } = await axios.get<Art>('/api/art/getRandomArt');
 		art = data;
-		console.log(art);
+	};
 
+	onMount(async () => {
+		await loadNewImage();
 		setInterval(async () => {
 			const { data } = await axios.get<Art>('/api/art/getRandomArt');
 			art = data;
 		}, 5 * 60 * 1000);
 	});
+
+	const handleArtLoadError = async () => {
+		console.log('error loading art image', artImage.src);
+		await loadNewImage();
+	};
+
+	const handleArtistLoadError = async () => {
+		console.log('error loading artist image', artistImage.src);
+		artistImage.style.display = 'none';
+	};
 </script>
 
 <div>
-	<div class="w-full h-[800px] overflow-clip text-ellipsis">
+	<div class="w-full h-[800px] overflow-hidden text-ellipsis p-2">
 		{#if art}
-			<img src={art.image_url} alt={art.title} class="w-full h-[500px] object-cover" />
+			<img
+				src={art.image_url}
+				alt={art.title}
+				class="w-full h-[500px] object-cover"
+				on:error={handleArtLoadError}
+				bind:this={artImage}
+			/>
 			<div>
 				<div class="pt-2 text-2xl font-bold">{art.title}</div>
 
 				<div class="text-sm">
-					<img src={art.artist_url} alt={art.artist_name} class="float-left w-32 h-32 mt-3 mr-3" />
+					<img
+						src={art.artist_url}
+						alt={art.artist_name}
+						class="float-left w-32 h-32 mt-3 mr-3"
+						on:error={handleArtistLoadError}
+						bind:this={artistImage}
+					/>
 					<div class="pt-2 text-xl font-bold">{art.artist_name}</div>
 					{art.short_description}
 				</div>

@@ -42,28 +42,30 @@
 	});
 </script>
 
-{#if num1 && num2}
-	<div class="grid grid-cols-5 align-middle items-center justify-center">
-		<div class="variable">
-			<span class="text-5xl">{num1}</span>
-			<span class="text-center text-blue-800">{@html sym1.join('')}</span>
+<div class="h-[130px] flex align-middle items-center">
+	{#if num1 && num2}
+		<div class="grid grid-cols-5 align-middle items-center justify-center">
+			<div class="variable">
+				<span class="text-5xl">{num1}</span>
+				<span class="text-center text-blue-800">{@html sym1.join('')}</span>
+			</div>
+			<div class="symbol">{operator}</div>
+			<div class="variable">
+				<span class="text-5xl">{num2}</span>
+				<span class="text-center text-blue-800">{@html sym2.join('')}</span>
+			</div>
+			<div class="symbol">=</div>
+			<div class="variable">
+				<span class="text-5xl">?</span>
+			</div>
 		</div>
-		<div class="symbol">{operator}</div>
-		<div class="variable">
-			<span class="text-5xl">{num2}</span>
-			<span class="text-center text-blue-800">{@html sym2.join('')}</span>
-		</div>
-		<div class="symbol">=</div>
-		<div class="variable">
-			<span class="text-5xl">?</span>
-		</div>
-	</div>
-{/if}
+	{/if}
+</div>
 
 <style>
 	.variable,
 	.symbol {
-		@apply h-32 p-1 rounded bg-white text-black w-24 min-h-[50px] flex justify-center items-center font-bold flex-col mx-auto;
+		@apply h-32 p-1 rounded bg-white/70 text-black w-24 min-h-[50px] flex justify-center items-center font-bold flex-col mx-auto;
 	}
 
 	.symbol {

@@ -31,3 +31,17 @@ export type Word = {
 	word: string;
 	url: string;
 };
+
+export type Event = {
+	startTime: string;
+	endTime: string;
+	title: string;
+	description: string;
+	location: string;
+	color: string;
+};
+
+export type CalendarDay = {
+	date: string;
+	events: Event[];
+};

@@ -61,7 +61,7 @@
 	});
 </script>
 
-<div class="relative h-[400px] w-[468px] overflow-hidden">
+<div class="relative h-[400px] w-[455px] overflow-hidden">
 	<div
 		class="absolute h-[400px] w-[936px] flex flex-row"
 		bind:this={slider}

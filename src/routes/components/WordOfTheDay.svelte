@@ -1,16 +1,23 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { db, type Word } from '$lib/localdb';
+	import type { Word } from '$lib/types';
+	import axios from 'axios';
 
 	const WORD_REFRESH = 120; //seconds
 
 	let pctPixel = 0;
 	let word: Word | null;
+
+	const getWord = async () => {
+		const { data } = await axios.get('/api/word');
+		word = data;
+		pctPixel = 0;
+	};
+
 	onMount(async () => {
-		word = await db.getRandomWord();
+		await getWord();
 		setInterval(async () => {
-			word = await db.getRandomWord();
-			pctPixel = 0;
+			await getWord();
 		}, WORD_REFRESH * 1000);
 
 		setInterval(() => {
@@ -23,8 +30,8 @@
 	<div>
 		<div class="grid grid-cols-2">
 			{#if word}
-				<div class="">
-					<img src={word.base64Url} alt={word.word} class="w-full h-full" />
+				<div class="w-full h-full">
+					<img src={word.url} alt={word.word} class="w-56 h-56" />
 				</div>
 				<div class=" flex flex-col justify-center items-center align-middle">
 					<h1 class="uppercase text-7xl">{word.word}</h1>

@@ -13,7 +13,6 @@
 	let calendarDays: CalendarDay[] = [];
 	const getCalendarData = async () => {
 		const { data } = await axios.get<CalendarDay[]>('/api/calendar');
-		console.log(data);
 		calendarDays = data;
 	};
 

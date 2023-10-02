@@ -38,6 +38,7 @@
 		await getWord();
 		setInterval(async () => {
 			await getWord();
+			pctPixel = 0;
 		}, WORD_REFRESH * 1000);
 
 		setInterval(() => {

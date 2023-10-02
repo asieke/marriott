@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { db } from '$lib/localdb';
 	import axios from 'axios';
+	import { imageUrlToBase64 } from '$lib/utils/image';
 
 	const TIME_PER_SLIDE = 60; // Time for each image slide in seconds
 
@@ -10,8 +11,22 @@
 		//get a random row from the db
 		const { data } = await axios.get('/api/slideshow');
 
-		console.log(data);
-		return data.url;
+		// check if the image exists in local storage
+		let cachedImage = await db.photos.get({ public_id: data.public_id });
+
+		// if the image doesn't exist then save the data.url to local storage as a base64 encoded string
+		if (!cachedImage) {
+			const base64 = await imageUrlToBase64(data.url);
+
+			await db.photos.put({
+				public_id: data.public_id,
+				base64Url: base64
+			});
+
+			return base64;
+		}
+
+		return cachedImage.base64Url;
 	};
 
 	let imageURL1: string, imageURL2: string;

@@ -25,9 +25,7 @@ async function uploadToS3(url: string, sk: string) {
 			Body: res.data, // res.data is now an ArrayBuffer
 			ContentType: res.headers['content-type'] // Set the correct content type
 		};
-		const awsres = await client.send(new PutObjectCommand(params));
-
-		console.log(awsres);
+		await client.send(new PutObjectCommand(params));
 	} catch (error) {
 		console.log(error);
 	}

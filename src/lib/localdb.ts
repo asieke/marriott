@@ -2,13 +2,14 @@ import Dexie, { type Table } from 'dexie';
 
 export type Photo = {
 	id?: number;
-	supabaseName: string;
+	public_id: string;
 	base64Url: string;
 };
 
 export type Word = {
 	id?: number;
 	word: string;
+	public_id: string;
 	base64Url: string;
 };
 
@@ -21,7 +22,7 @@ export class MySubClassedDexie extends Dexie {
 	constructor() {
 		super('myDatabase');
 		this.version(1).stores({
-			photos: '++id, supabaseName, base64Url', // Primary key and indexed props
+			photos: '++id, public_id, base64Url', // Primary key and indexed props
 			words: '++id, word, base64Url'
 		});
 	}

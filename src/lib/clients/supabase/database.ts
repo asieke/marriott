@@ -94,6 +94,39 @@ export interface Database {
 					}
 				];
 			};
+			slideshow: {
+				Row: {
+					bytes: number | null;
+					created_at: string;
+					format: string | null;
+					height: number | null;
+					id: number;
+					public_id: string | null;
+					url: string | null;
+					width: number | null;
+				};
+				Insert: {
+					bytes?: number | null;
+					created_at?: string;
+					format?: string | null;
+					height?: number | null;
+					id?: number;
+					public_id?: string | null;
+					url?: string | null;
+					width?: number | null;
+				};
+				Update: {
+					bytes?: number | null;
+					created_at?: string;
+					format?: string | null;
+					height?: number | null;
+					id?: number;
+					public_id?: string | null;
+					url?: string | null;
+					width?: number | null;
+				};
+				Relationships: [];
+			};
 		};
 		Views: {
 			[_ in never]: never;
@@ -116,6 +149,18 @@ export interface Database {
 					image_category: string;
 					image_url: string;
 					view_count: number;
+				}[];
+			};
+			get_random_slideshow_image: {
+				Args: Record<PropertyKey, never>;
+				Returns: {
+					id: number;
+					public_id: string;
+					width: number;
+					height: number;
+					format: string;
+					url: string;
+					bytes: number;
 				}[];
 			};
 		};

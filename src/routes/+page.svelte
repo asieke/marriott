@@ -8,18 +8,13 @@
 	import Photo from './components/Photo.svelte';
 
 	//data updaters
-	import UpdatePhotos from './components/updaters/UpdatePhotos.svelte';
 	import DeleteDB from './components/updaters/DeleteDB.svelte';
-
-	export let data;
-	const { supabase, session } = data;
-
-	console.log(data);
+	import GooglePhotos from './components/updaters/GooglePhotos.svelte';
 </script>
 
 <div class="flex flex-row h-12">
 	<DeleteDB />
-	<UpdatePhotos />
+	<GooglePhotos />
 </div>
 
 <div class="grid grid-cols-2 gap-4 p-4">

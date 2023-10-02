@@ -34,8 +34,8 @@
 					<img src={word.url} alt={word.word} class="w-56 h-56" />
 				</div>
 				<div class=" flex flex-col justify-center items-center align-middle">
-					<h1 class="uppercase text-7xl">{word.word}</h1>
-					<h1 class="text-6xl lowercase pt-4">{word.word}</h1>
+					<h1 class="uppercase text-5xl">{word.word}</h1>
+					<h1 class="text-5xl lowercase pt-4">{word.word}</h1>
 				</div>
 			{/if}
 		</div>

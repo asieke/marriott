@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { db } from '$lib/localdb';
+	import axios from 'axios';
 
 	const TIME_PER_SLIDE = 60; // Time for each image slide in seconds
 
 	// Function to fetch an image, perform caching and return base64 encoded image string
 	const getImage = async (): Promise<string> => {
 		//get a random row from the db
-		const image = await db.getRandomPhoto();
-		return image?.base64Url ?? '';
+		const { data } = await axios.get('/api/slideshow');
+
+		console.log(data);
+		return data.url;
 	};
 
 	let imageURL1: string, imageURL2: string;

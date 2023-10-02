@@ -9,7 +9,6 @@ export type Photo = {
 export type Word = {
 	id?: number;
 	word: string;
-	public_id: string;
 	base64Url: string;
 };
 

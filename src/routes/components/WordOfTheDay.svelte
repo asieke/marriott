@@ -2,16 +2,36 @@
 	import { onMount } from 'svelte';
 	import type { Word } from '$lib/types';
 	import axios from 'axios';
+	import { imageUrlToBase64 } from '$lib/utils/image';
+	import { db } from '$lib/localdb';
 
 	const WORD_REFRESH = 120; //seconds
 
 	let pctPixel = 0;
-	let word: Word | null;
+	let word: string | null;
+	let src: string | null;
 
 	const getWord = async () => {
 		const { data } = await axios.get('/api/word');
-		word = data;
-		pctPixel = 0;
+
+		word = data.word;
+
+		let cachedImage = await db.words.get({ word: data.word });
+
+		if (cachedImage) {
+			src = cachedImage.base64Url;
+		} else {
+			const base64 = await imageUrlToBase64(data.url);
+
+			await db.words.put({
+				word: data.word,
+				base64Url: base64
+			});
+
+			src = base64;
+		}
+
+		console.log(data, cachedImage);
 	};
 
 	onMount(async () => {
@@ -31,11 +51,11 @@
 		<div class="grid grid-cols-2">
 			{#if word}
 				<div class="w-full h-full">
-					<img src={word.url} alt={word.word} class="w-56 h-56" />
+					<img {src} alt={word} class="w-56 h-56" />
 				</div>
 				<div class=" flex flex-col justify-center items-center align-middle">
-					<h1 class="uppercase text-5xl">{word.word}</h1>
-					<h1 class="text-5xl lowercase pt-4">{word.word}</h1>
+					<h1 class="uppercase text-5xl">{word}</h1>
+					<h1 class="text-5xl lowercase pt-4">{word}</h1>
 				</div>
 			{/if}
 		</div>

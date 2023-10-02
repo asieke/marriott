@@ -25,9 +25,10 @@ async function uploadToS3(url: string, sk: string) {
 			Body: res.data, // res.data is now an ArrayBuffer
 			ContentType: res.headers['content-type'] // Set the correct content type
 		};
+		console.log('successfully uploaded...', url, sk);
 		await client.send(new PutObjectCommand(params));
 	} catch (error) {
-		console.log(error);
+		console.log('error uploading...', url, sk);
 	}
 }
 
@@ -45,7 +46,7 @@ export const GET = async () => {
 		.match({ id: artist.image_id });
 
 	//save the full res image to s3
-	const url = 'https://mdl.artvee.com/sdl/' + artist.sk + 'sdl.jpg';
+	const url = 'https://mdl.artvee.com/sftb/' + artist.sk + '.jpg';
 
 	// Call uploadToS3 without awaiting its completion
 	uploadToS3(url, artist.sk);

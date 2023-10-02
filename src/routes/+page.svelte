@@ -6,6 +6,7 @@
 	import MathProblems from './components/MathProblems.svelte';
 	import Calendar from './components/Calendar.svelte';
 	import Photo from './components/Photo.svelte';
+	import Facts from './components/Facts.svelte';
 
 	//data updaters
 	import DeleteDB from './components/updaters/DeleteDB.svelte';
@@ -28,5 +29,6 @@
 	<div class="flex flex-col gap-4">
 		<div class="component"><Calendar /></div>
 		<div class="component"><Photo /></div>
+		<Facts />
 	</div>
 </div>

@@ -23,12 +23,12 @@
 
 	const handleArtLoadError = async () => {
 		console.log('error loading art image', artImage.src);
-		await loadNewImage();
+		// await loadNewImage();
 	};
 
 	const handleArtistLoadError = async () => {
 		console.log('error loading artist image', artistImage.src);
-		artistImage.style.display = 'none';
+		// artistImage.style.display = 'none';
 	};
 </script>
 

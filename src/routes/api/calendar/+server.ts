@@ -15,9 +15,9 @@ const displayDate = (dateStr: string) => {
 export const GET = async () => {
 	try {
 		const events: CalendarDay[] = [];
-
 		const url =
-			'https://script.google.com/macros/s/AKfycbznfSlOeuCiS-Alw5AFQiIE7SNelvQOcYT1WpiCw-RwoYJerhW89GqJKAMqZ5t3mJkP/exec';
+			'https://script.google.com/macros/s/AKfycbz7eZW-Kg8k3RVm1_DnhgYzNk5AhcPfZcsKkBPBuykm1G1lux6_SF4PfbB_NcD7DXaL/exec';
+
 		const params = '?key=' + GOOGLE_SHEET_KEY + '&type=calendar';
 
 		const { data } = await axios.get<Event[]>(url + params);

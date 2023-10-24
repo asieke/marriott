@@ -26,6 +26,7 @@
 	onMount(() => {
 		setInterval(() => {
 			time = getTime();
+			date = getDate();
 		}, 1000);
 	});
 </script>

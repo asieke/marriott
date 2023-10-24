@@ -37,8 +37,8 @@
 	onMount(async () => {
 		await getWord();
 		setInterval(async () => {
-			await getWord();
 			pctPixel = 0;
+			await getWord();
 		}, WORD_REFRESH * 1000);
 
 		setInterval(() => {

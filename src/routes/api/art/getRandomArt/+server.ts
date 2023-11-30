@@ -46,10 +46,10 @@ export const GET = async () => {
 		.match({ id: artist.image_id });
 
 	//save the full res image to s3
-	const url = 'https://mdl.artvee.com/sftb/' + artist.sk + '.jpg';
+	//const url = 'https://mdl.artvee.com/sftb/' + artist.sk + '.jpg';
 
 	// Call uploadToS3 without awaiting its completion
-	uploadToS3(url, artist.sk);
+	//uploadToS3(url, artist.sk);
 
 	return new Response(JSON.stringify({ ...artist }));
 };

@@ -12,26 +12,10 @@
 	let src: string | null;
 
 	const getWord = async () => {
-		const { data } = await axios.get('/api/word');
-
-		word = data.word;
-
-		let cachedImage = await db.words.get({ word: data.word });
-
-		if (cachedImage) {
-			src = cachedImage.base64Url;
-		} else {
-			const base64 = await imageUrlToBase64(data.url);
-
-			await db.words.put({
-				word: data.word,
-				base64Url: base64
-			});
-
-			src = base64;
-		}
-
-		console.log(data, cachedImage);
+		const w = await db.getRandomWord();
+		if (!w) return;
+		word = w.word;
+		src = w.base64Url;
 	};
 
 	onMount(async () => {

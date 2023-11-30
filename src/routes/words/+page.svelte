@@ -61,7 +61,8 @@
 </script>
 
 <div class="w-full h-full bg-slate-100 z-50 border-8 p-8">
-	<div class="flex flex-row">
+	<div class="flex flex-row pt-10">
+		<a href="/" class="bg-slate-300 flex items-center">HOME</a>
 		<button disabled={loading} class="p-4 bg-purple-400" on:click={getWord}>Generate Word</button>
 		<h2>{words.length}</h2>
 	</div>

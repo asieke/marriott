@@ -16,6 +16,7 @@
 <div class="flex flex-row h-12">
 	<DeleteDB />
 	<GooglePhotos />
+	<a href="/words" class="bg-slate-300 flex items-center">Words</a>
 </div>
 
 <div class="grid grid-cols-2 gap-4 p-4">

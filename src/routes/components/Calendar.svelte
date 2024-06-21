@@ -48,7 +48,7 @@
 	};
 </script>
 
-<div class="h-[1000px] overflow-hidden">
+<div class="h-[950px] overflow-hidden">
 	{#if calendarDays.length > 0}
 		{#each calendarDays as { date, events }}
 			<div>{date}</div>

@@ -31,12 +31,10 @@
 	});
 </script>
 
-<div class="h-[120px] px-4 flex align-middle items-center">
-	<div>
-		<h1 class="font-mono mb-3">
-			<span class="text-6xl">{time.slice(0, -3)}</span>
-			<span class="text-4xl">{time.slice(-2)}</span>
-		</h1>
-		<h2 class="font-mono text-2xl">{date}</h2>
-	</div>
+<div class="h-[120px] w-full px-4 text-center">
+	<h1 class="font-mono mb-3 text-center">
+		<span class="text-6xl">{time.slice(0, -3)}</span>
+		<span class="text-4xl">{time.slice(-2)}</span>
+	</h1>
+	<h2 class="font-mono text-2xl">{date}</h2>
 </div>

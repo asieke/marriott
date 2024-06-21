@@ -27,6 +27,7 @@
 	</div>
 	<div class="flex flex-col gap-4">
 		<div class="component"><Masterpiece /></div>
+		<div class="component"><WordOfTheDay /></div>
 	</div>
 	<div class="flex flex-col gap-4">
 		<div class="component"><Calendar /></div>

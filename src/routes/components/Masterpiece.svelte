@@ -33,23 +33,23 @@
 </script>
 
 <div>
-	<div class="w-full h-[940px] overflow-hidden text-ellipsis p-2">
+	<div class="w-full h-[660px] overflow-hidden text-ellipsis p-2">
 		{#if art}
 			<img
 				src={art.image_url}
 				alt={art.title}
-				class="w-full h-[560px] object-cover"
+				class="w-full h-[400px] object-cover"
 				on:error={handleArtLoadError}
 				bind:this={artImage}
 			/>
 			<div>
 				<div class="pt-2 text-2xl font-bold">{art.title}</div>
 
-				<div class="text-base">
+				<div class="text-sm">
 					<img
 						src={art.artist_url}
 						alt={art.artist_name}
-						class="float-left w-48 h-48 mt-3 mr-3"
+						class="float-left w-28 h-28 mt-3 mr-3"
 						on:error={handleArtistLoadError}
 						bind:this={artistImage}
 					/>

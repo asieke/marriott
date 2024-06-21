@@ -21,7 +21,7 @@
 </script>
 
 <div class="h-[240px] flex align-middle items-center w-full">
-	<div class="grid grid-cols-4 gap-1 text-center">
+	<div class="grid grid-cols-4 gap-1 text-center w-full">
 		{#if dailyWeather}
 			{#each dailyWeather as item}
 				<div class="flex flex-col justify-center align-middle items-center space-y-2">
